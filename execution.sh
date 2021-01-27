@@ -1,0 +1,2 @@
+source ./properties.sh
+mvn clean test -Dcucumber.options="--tags @testrunner --tags ~@skip --tags ~@wip --plugin junit:target/results/cucumber.xml --plugin com.cucumber.listener.ExtentCucumberFormatter:target/results/report.html"
