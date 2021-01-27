@@ -1,5 +1,6 @@
 package com.ui.demo.steps;
 
+import com.google.gson.JsonArray;
 import com.jayway.jsonpath.JsonPath;
 import com.ui.demo.common.Config;
 import com.ui.demo.common.Request;
@@ -29,10 +30,13 @@ public class APIStep implements En {
         });
         And("^I print the films api$", () -> {
             String resp = response.asString();
-            JSONArray getFilms = JsonPath.read(resp,"$..[?(@.name=='Luke Skywalker')].films");
-            for(int i =0 ; i<getFilms.size();i++){
-                log.info("Print film api : " + getFilms.get(i).toString());
+            JSONArray getFilms = (JsonPath.read(resp,"$..[?(@.name=='Luke Skywalker')].films"));
+            JSONArray getUrls = (JSONArray) getFilms.get(0);
+            for(Object getUrl : getUrls){
+                log.info(getUrl.toString());
             }
+
+
         });
 
         Then("^I print the eye color for \"([^\"]*)\"$", (String name) -> {
